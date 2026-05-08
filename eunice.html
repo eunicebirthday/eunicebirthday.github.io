@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HAPPY BIRTHDAY, MY EUNIVERSEEEE 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --rose:      #f4a7b9;
+    --rose-deep: #e07090;
+    --blush:     #fde8ed;
+    --cream:     #fdf6f0;
+    --petal:     #fce4ec;
+    --text:      #4a2535;
+    --text-soft: #8a5a6a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  #hearts-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page { position: relative; z-index: 1; }
+
+  section {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 80px 32px;
+  }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 32px;
+  }
+
+  .petal-ring {
+    font-size: 2rem;
+    letter-spacing: 0.4em;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.3s;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 10vw, 6rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--rose-deep);
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.6s;
+  }
+
+  .hero-title em { font-style: italic; font-weight: 300; }
+
+  .hero-subtitle {
+    margin-top: 20px;
+    font-size: 1rem;
+    color: var(--text-soft);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.9s;
+  }
+
+  .hero-date {
+    margin-top: 10px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--rose-deep);
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 1.1s;
+  }
+
+  .scroll-hint {
+    margin-top: 60px;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    letter-spacing: 0.15em;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 1.4s;
+  }
+
+  .scroll-hint span {
+    display: block;
+    margin-top: 8px;
+    font-size: 1.2rem;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  /* DIVIDER */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 0 auto 48px;
+    max-width: 300px;
+  }
+  .divider-line { flex: 1; height: 1px; background: var(--rose); opacity: 0.5; }
+  .divider-heart { color: var(--rose-deep); font-size: 1rem; }
+
+  /* SECTION LABELS */
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    font-weight: 300;
+    color: var(--rose-deep);
+    line-height: 1.15;
+    margin-bottom: 40px;
+  }
+
+  .section-title em { font-style: italic; }
+
+  /* LETTER */
+  #letter {
+    background: white;
+    border-radius: 2px;
+    padding: 64px 48px;
+    box-shadow: 0 4px 40px rgba(240,160,185,0.15);
+    position: relative;
+    border-top: 3px solid var(--rose);
+  }
+
+  #letter::before {
+    content: '\275D';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem;
+    color: var(--rose);
+    opacity: 0.3;
+    position: absolute;
+    top: 16px; left: 24px;
+    line-height: 1;
+  }
+
+  .letter-greeting {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--rose-deep);
+    margin-bottom: 24px;
+  }
+
+  .letter-body {
+    font-size: 1rem;
+    line-height: 1.9;
+    color: var(--text);
+    white-space: pre-line;
+  }
+
+  .letter-sign {
+    margin-top: 36px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--rose-deep);
+    text-align: right;
+  }
+
+  /* REASONS */
+  .reasons-grid { display: grid; gap: 16px; }
+
+  .reason-card {
+    background: white;
+    border-radius: 2px;
+    padding: 28px 32px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    box-shadow: 0 2px 20px rgba(240,160,185,0.12);
+    border-left: 3px solid var(--rose);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reason-card.visible { opacity: 1; transform: translateY(0); }
+
+  .reason-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--rose);
+    line-height: 1;
+    min-width: 40px;
+  }
+
+  .reason-text {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text);
+    padding-top: 6px;
+  }
+
+  /* LOCKED SECTION */
+  #locked-section {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 80px 32px;
+  }
+
+  .lock-card {
+    background: white;
+    border-radius: 2px;
+    padding: 56px 48px;
+    text-align: center;
+    box-shadow: 0 4px 40px rgba(240,160,185,0.15);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .lock-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--rose), var(--rose-deep), var(--rose));
+  }
+
+  .lock-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    display: block;
+    animation: heartbeat 2s ease-in-out infinite;
+  }
+
+  .lock-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--rose-deep);
+    margin-bottom: 12px;
+  }
+
+  .lock-hint {
+    font-size: 0.95rem;
+    color: var(--text-soft);
+    margin-bottom: 8px;
+    line-height: 1.6;
+  }
+
+  .lock-hint strong {
+    color: var(--rose-deep);
+    font-weight: 400;
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+  }
+
+  .lock-input-wrap {
+    margin-top: 28px;
+    display: flex;
+    gap: 10px;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .lock-input {
+    flex: 1;
+    padding: 12px 18px;
+    border: 1.5px solid var(--rose);
+    border-radius: 999px;
+    font-family: 'Jost', sans-serif;
+    font-size: 1rem;
+    color: var(--text);
+    background: var(--cream);
+    outline: none;
+    text-align: center;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .lock-input:focus {
+    border-color: var(--rose-deep);
+    box-shadow: 0 0 0 3px rgba(224,112,144,0.12);
+  }
+
+  .lock-input.wrong {
+    border-color: #e07070;
+    animation: shake 0.4s ease;
+  }
+
+  .lock-btn {
+    padding: 12px 22px;
+    background: var(--rose-deep);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+    white-space: nowrap;
+  }
+
+  .lock-btn:hover { background: #c85878; }
+  .lock-btn:active { transform: scale(0.97); }
+
+  .lock-error {
+    margin-top: 14px;
+    font-size: 0.85rem;
+    color: #c85878;
+    min-height: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .lock-error.show { opacity: 1; }
+
+  .lock-attempts {
+    margin-top: 8px;
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    letter-spacing: 0.05em;
+    min-height: 18px;
+  }
+
+  /* UNLOCKED */
+  #unlocked-content {
+    display: none;
+    text-align: center;
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  .unlocked-emoji {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .unlocked-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem;
+    font-weight: 300;
+    color: var(--rose-deep);
+    margin-bottom: 32px;
+  }
+
+  .secret-cards { display: grid; gap: 16px; text-align: left; margin-top: 24px; }
+
+  .secret-card {
+    background: var(--petal);
+    border-radius: 2px;
+    padding: 24px 28px;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text);
+    border-left: 3px solid var(--rose-deep);
+  }
+
+  .secret-card-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    margin-bottom: 8px;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 60px 32px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-hearts { font-size: 1.5rem; letter-spacing: 0.5em; margin-bottom: 16px; color: var(--rose); }
+
+  .footer-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--text-soft);
+  }
+
+  /* CONFETTI */
+  .confetti-piece {
+    position: fixed;
+    top: -20px;
+    pointer-events: none;
+    z-index: 9999;
+    animation: confettiFall linear forwards;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(8px); }
+  }
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14%  { transform: scale(1.15); }
+    28%  { transform: scale(1); }
+    42%  { transform: scale(1.1); }
+    56%  { transform: scale(1); }
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+  }
+  @keyframes confettiFall {
+    to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  @media (max-width: 480px) {
+    #letter { padding: 40px 24px; }
+    .lock-card { padding: 40px 20px; }
+    .lock-input-wrap { flex-direction: column; align-items: stretch; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="hearts-canvas"></canvas>
+
+<div class="page">
+
+  <!-- ══ HERO ══ -->
+  <section id="hero">
+    <div class="petal-ring">🌸 🌷 🌸</div>
+
+    <h1 class="hero-title">
+      HAPPY BIRTHDAY,<br><em>EUNICE</em>
+    </h1>
+
+    <!-- ✏️ EDIT: subtitle and date below -->
+    <p class="hero-subtitle">The day an angel was born fr</p>
+    <p class="hero-date">9/05/2026 🌸</p>
+
+    <p class="scroll-hint">something special is waiting for ya my loveeee <span>↓</span></p>
+  </section>
+
+  <!-- ══ LOVE LETTER ══ -->
+  <section>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-heart">♡</div>
+      <div class="divider-line"></div>
+    </div>
+
+    <p class="section-label">a letter to a girl named Eunice</p>
+    <h2 class="section-title">MY <em>DEAREST</em> EUNICE,</h2>
+
+    <div id="letter">
+      <p class="letter-greeting">My love,</p>
+
+     
+      <p class="letter-body">Babe first off happy birthday happy birthdayyy, today is your special day and I hope you go out and enjoy yourself yeah, I love you so much 
+        I trully do. I know we had our moments of frustration and at times we almost broke up, I am so glad we pushed through that cause of how kind hearted you are, how beautiful 
+        you are to me. You mean so much to everyone Eunice, you have alot of qualities that really impact people in such ways that they want to better themselves for u, myself included.
+        Babe it's okay to be shy on your debut, you deserve it so much my love, I don't think I have ever seen anyone else that is as kind as you baby. A beautiful human inside and out,
+        Eunice Espinosa Mendez you are an amazing human, sibling, girlfriend and friend, alot of people truly cherish you babe and I know how doubtful you are about people caring you babe, but trust me
+        despite the challenges and struggles you still strive to be the best sort of sibling and daughter which to me is remarkable babe. I hope you know that I wish to stay by your side, ensure
+        nothing hurts you at all and you feel loved. I've been obsessed with you babe like im just in awe with how beautiful you are as a person and your appearance. Babe the way you just keep trying
+        to be the best daughter by having that responsibility of taking care of your parents at a young age is just really commendable, u are doing such a great job in life I love you so much and hope
+        your positivity continues to inspire those around you. Happy birthday Eunice.
+
+      
+      <p class="letter-sign">Always yours, Ash 🌸</p>
+    </div>
+  </section>
+
+  <!-- ══ REASONS ══ -->
+  <section>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-heart">♡</div>
+      <div class="divider-line"></div>
+    </div>
+
+    <p class="section-label">written from the heart</p>
+    <h2 class="section-title">Reasons I love <em>you</em></h2>
+
+    <div class="reasons-grid">
+
+      <div class="reason-card">
+        <div class="reason-number">01</div>
+        <div class="reason-text">Babe ur really funny even when ur mad, I love giggling with ya and annoying u hope u put with it my love!!!</div>
+      </div>
+
+      <div class="reason-card">
+        <div class="reason-number">02</div>
+        <div class="reason-text">Changing, the Eunice I spoke to 7 months ago is different to the one reading this letter, I know you been through so much babe and ill continue to love u omki?</div>
+      </div>
+
+      <div class="reason-card">
+        <div class="reason-number">03</div>
+        <div class="reason-text">SO DAMN BEAUTIFUL (PRETEND I ADDED PICTURES OF YOU) WOAAAA SO BEAUTIFUL GORGEOUS AHAHHAHA, seriously ur divine.</div>
+      </div>
+
+      <div class="reason-card">
+        <div class="reason-number">04</div>
+        <div class="reason-text">You are much more mature than me, someone who </div>
+      </div>
+
+      <div class="reason-card">
+        <div class="reason-number">05</div>
+        <div class="reason-text">The way you try not to worry me when things go wrong. Trust me babe I know when they do I know you well already.</div>
+      </div>
+
+      <div class="reason-card">
+        <div class="reason-number">06</div>
+        <div class="reason-text">You make me want to be better everyday, thank you for instilling motivation in me babe ur seriously an awesome girlfriend</div>
+      </div>
+
+      <div class="reason-card">
+        <div class="reason-number">07</div>
+        <div class="reason-text">Just you babe. Everything about you whether you change or not, everything about you is just so cute and beautiful to me that I have this need to nuture you somehow and tell you that ur safe babe.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ LOCKED SECTION ══ -->
+  <section id="locked-section" style="padding-top: 0;">
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-heart">♡</div>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="lock-card">
+
+      <!-- LOCK UI -->
+      <div id="lock-ui">
+        <span class="lock-icon">🔒</span>
+        <h2 class="lock-title">A secret, just for you</h2>
+        <p class="lock-hint">There's something hidden in here.<br>Answer this to unlock it:</p>
+        <p class="lock-hint" style="margin-top: 16px;">
+          <strong>"Who does Ash love the most in this world?"</strong>
+        </p>
+
+        <div class="lock-input-wrap">
+          <input
+            class="lock-input"
+            id="lock-input"
+            type="text"
+            placeholder="your answer..."
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+          />
+          <button class="lock-btn" onclick="checkPassword()">Open ♡</button>
+        </div>
+
+        <p class="lock-error" id="lock-error">hmm, try again my love!!! cmonnnn 🌸</p>
+        <p class="lock-attempts" id="lock-attempts"></p>
+      </div>
+
+      <!-- UNLOCKED -->
+      <div id="unlocked-content">
+        <span class="unlocked-emoji">💌</span>
+        <h2 class="unlocked-title">YAYY YOU GOT ITTT <em>of course</em> you did babyyyyy ♡</h2>
+
+        <!-- ✏️ EDIT: Customize these secret messages for her -->
+        <div class="secret-cards">
+
+          <div class="secret-card">
+            <p class="secret-card-label">🗓 a promise</p>
+            <!-- ✏️ EDIT: Your promise to her -->
+            <p> I plan to meet you in 2 years time don't forget I promise this will happen and ill run up and hug you and just hold and holddd and never let go, I have been thinking about that for a long time babe i just cant wait for you to be in my arms. </p>
+          </div>
+
+          <div class="secret-card">
+            <p class="secret-card-label">✨ mwaaaaa babe </p>
+  
+            <p>babe its your special day, I know I haven't been the best boyfriend but someone like you truly deserves the best in life, to me I think you are one of the rare good people in this world so keep it up fr I love u so much.</p>
+          </div>
+
+          <div class="secret-card">
+            <p class="secret-card-label">💭 favourite memories of uss</p>
+            <p>I don't have pictures anymore babe but those late night calls where I fall asleep (sorry babe you make me so safe but I will be wide awake from now) either playing ML or just doing our own thing just make me feel so connected with u babe, I love you so much.</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <div class="footer-hearts">♡ ♡ ♡</div>
+    <!-- ✏️ EDIT: Footer message -->
+    <p class="footer-text">Made from the boyfriend that appreciates and loves you, Ash 🌸</p>
+  </footer>
+
+</div>
+
+<script>
+// ── FLOATING HEARTS ──
+const canvas = document.getElementById('hearts-canvas');
+const ctx = canvas.getContext('2d');
+
+function resize() {
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+const HEARTS = [];
+const COUNT  = 30;
+const GLYPHS = ['♥','♡','❤','💕','🌸','✿','꩜'];
+const COLORS = ['#f4a7b9','#e07090','#f7c5d0','#fde8ed','#e8a0b4','#d0b0e0','#f9d0da'];
+
+function makeHeart(startY) {
+  return {
+    x:      Math.random() * window.innerWidth,
+    y:      startY !== undefined ? startY : window.innerHeight + 40,
+    size:   Math.random() * 20 + 10,
+    speed:  Math.random() * 0.7 + 0.25,
+    drift:  (Math.random() - 0.5) * 0.35,
+    opacity: Math.random() * 0.4 + 0.08,
+    spin:   (Math.random() - 0.5) * 0.018,
+    angle:  Math.random() * Math.PI * 2,
+    glyph:  GLYPHS[Math.floor(Math.random() * GLYPHS.length)],
+    color:  COLORS[Math.floor(Math.random() * COLORS.length)],
+    wobble: Math.random() * Math.PI * 2,
+    wSpeed: Math.random() * 0.025 + 0.008,
+  };
+}
+
+for (let i = 0; i < COUNT; i++) {
+  HEARTS.push(makeHeart(Math.random() * window.innerHeight));
+}
+
+(function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (const h of HEARTS) {
+    ctx.save();
+    ctx.globalAlpha = h.opacity;
+    ctx.font = `${h.size}px serif`;
+    ctx.fillStyle = h.color;
+    ctx.translate(h.x, h.y);
+    ctx.rotate(h.angle);
+    ctx.fillText(h.glyph, 0, 0);
+    ctx.restore();
+
+    h.y      -= h.speed;
+    h.x      += h.drift + Math.sin(h.wobble) * 0.45;
+    h.wobble += h.wSpeed;
+    h.angle  += h.spin;
+
+    if (h.y < -50) Object.assign(h, makeHeart());
+  }
+  requestAnimationFrame(animate);
+})();
+
+// ── SCROLL REVEAL (reason cards) ──
+const io = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 110);
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reason-card').forEach(c => io.observe(c));
+
+// ── PASSWORD LOCK ──
+// Accepts eunice in ANY casing (eunice / EUNICE / Eunice / eUnIcE etc.)
+let attempts = 0;
+
+function checkPassword() {
+  const input  = document.getElementById('lock-input');
+  const error  = document.getElementById('lock-error');
+  const hint   = document.getElementById('lock-attempts');
+  const val    = input.value.trim().toLowerCase();
+
+  if (val === 'eunice') {
+    unlock();
+    return;
+  }
+
+  attempts++;
+  input.classList.remove('wrong');
+  void input.offsetWidth;
+  input.classList.add('wrong');
+  error.classList.add('show');
+
+  const msgs = [
+    'hmm, try again my love 🌸',
+    'so close... or not 🌷',
+    'think harder, babe 💭',
+    'it\'s easier than you think 💕',
+    'the answer is closer than the distance between us ♡',
+    'you literally know this 🥺',
+    'c\'mon Eunice 🌸',
+    'think about the person Ash loves most 💌',
+    'it\'s someone very very special 🤍',
+    'it\'s YOU — it\'s always been you ♡',
+  ];
+  error.textContent = msgs[Math.min(attempts - 1, msgs.length - 1)];
+
+  if (attempts >= 3) {
+    hint.textContent = 'hint: the answer is your own name 💌';
+  }
+
+  setTimeout(() => input.classList.remove('wrong'), 500);
+}
+
+document.getElementById('lock-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') checkPassword();
+});
+
+function unlock() {
+  launchConfetti();
+  const lockUI   = document.getElementById('lock-ui');
+  const unlocked = document.getElementById('unlocked-content');
+
+  lockUI.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  lockUI.style.opacity    = '0';
+  lockUI.style.transform  = 'scale(0.95)';
+
+  setTimeout(() => {
+    lockUI.style.display   = 'none';
+    unlocked.style.display = 'block';
+  }, 500);
+}
+
+
+function launchConfetti() {
+  const colors = ['#f4a7b9','#e07090','#fde8ed','#f7c5d0','#c8d8c0','#d8d0f0','#ffffff'];
+  for (let i = 0; i < 90; i++) {
+    setTimeout(() => {
+      const el     = document.createElement('div');
+      el.classList.add('confetti-piece');
+      const isHeart = Math.random() > 0.45;
+      const dur     = (Math.random() * 2 + 2).toFixed(2);
+      const left    = (Math.random() * 100).toFixed(1);
+      const color   = colors[Math.floor(Math.random() * colors.length)];
+
+      if (isHeart) {
+        el.textContent = '♥';
+        el.style.cssText = `
+          font-size:${(Math.random() * 14 + 10).toFixed(0)}px;
+          color:${color};
+          left:${left}vw;
+          animation-duration:${dur}s;
+          font-family:serif;
+        `;
+      } else {
+        const s = (Math.random() * 8 + 4).toFixed(0);
+        el.style.cssText = `
+          width:${s}px;height:${s}px;
+          background:${color};
+          border-radius:50%;
+          left:${left}vw;
+          animation-duration:${dur}s;
+        `;
+      }
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), parseFloat(dur) * 1000 + 200);
+    }, i * 28);
+  }
+}
+</script>
+</body>
+</html>
