@@ -16,7 +16,6 @@
     --petal:     #fce4ec;
     --text:      #4a2535;
     --text-soft: #8a5a6a;
-    --envelope-bg: #fce4ec;
   }
 
   html { scroll-behavior: smooth; }
@@ -46,15 +45,12 @@
     padding: 80px 32px;
   }
 
-  /* ── MUSIC PLAYER ── */
+  /* MUSIC PLAYER */
   #music-player {
     position: fixed;
-    bottom: 24px;
-    right: 24px;
+    bottom: 24px; right: 24px;
     z-index: 1000;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    display: flex; align-items: center; gap: 12px;
     background: white;
     border-radius: 999px;
     padding: 10px 20px 10px 14px;
@@ -62,261 +58,414 @@
     border: 1.5px solid var(--rose);
     transition: all 0.3s ease;
   }
-
   #music-player:hover { box-shadow: 0 6px 32px rgba(224,112,144,0.35); }
 
   .music-btn {
     width: 36px; height: 36px;
     border-radius: 50%;
     background: var(--rose-deep);
-    border: none;
-    cursor: pointer;
+    border: none; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    font-size: 1rem;
-    color: white;
+    font-size: 1rem; color: white;
     transition: background 0.2s, transform 0.15s;
     flex-shrink: 0;
   }
   .music-btn:hover { background: #c85878; transform: scale(1.08); }
 
-  .music-info {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.3;
-    min-width: 0;
-  }
+  .music-info { display: flex; flex-direction: column; line-height: 1.3; min-width: 0; }
+  .music-title { font-size: 0.75rem; font-weight: 400; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 160px; }
+  .music-sub { font-size: 0.65rem; color: var(--text-soft); }
 
-  .music-title {
-    font-size: 0.75rem;
-    font-weight: 400;
-    color: var(--text);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 160px;
-  }
-
-  .music-sub {
-    font-size: 0.65rem;
-    color: var(--text-soft);
-  }
-
-  .music-bars {
-    display: flex;
-    align-items: flex-end;
-    gap: 2px;
-    height: 16px;
-    margin-left: 4px;
-  }
-
-  .music-bar {
-    width: 3px;
-    background: var(--rose-deep);
-    border-radius: 2px;
-    animation: musicBar 0.8s ease-in-out infinite alternate;
-  }
+  .music-bars { display: flex; align-items: flex-end; gap: 2px; height: 16px; margin-left: 4px; }
+  .music-bar { width: 3px; background: var(--rose-deep); border-radius: 2px; animation: musicBar 0.8s ease-in-out infinite alternate; }
   .music-bar:nth-child(1) { animation-delay: 0s;    height: 6px; }
   .music-bar:nth-child(2) { animation-delay: 0.15s; height: 12px; }
   .music-bar:nth-child(3) { animation-delay: 0.3s;  height: 8px; }
   .music-bar:nth-child(4) { animation-delay: 0.1s;  height: 14px; }
   .music-bar:nth-child(5) { animation-delay: 0.25s; height: 5px; }
-
   .music-bars.paused .music-bar { animation-play-state: paused; }
-
-  @keyframes musicBar {
-    from { transform: scaleY(0.4); }
-    to   { transform: scaleY(1); }
-  }
+  @keyframes musicBar { from { transform: scaleY(0.4); } to { transform: scaleY(1); } }
 
   #yt-iframe { position: fixed; top: -9999px; left: -9999px; width: 1px; height: 1px; }
 
-  /* ── HERO & COUNTDOWN ── */
+  /* HERO */
   #hero {
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 60px 32px;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center; padding: 60px 32px;
   }
-
   .petal-ring { font-size: 2rem; letter-spacing: 0.4em; margin-bottom: 24px; opacity: 0; animation: fadeUp 1s ease forwards 0.3s; }
-
   .hero-title {
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(3rem, 10vw, 6rem);
-    font-weight: 300;
-    line-height: 1.05;
+    font-weight: 300; line-height: 1.05;
     color: var(--rose-deep);
-    opacity: 0;
-    animation: fadeUp 1s ease forwards 0.6s;
+    opacity: 0; animation: fadeUp 1s ease forwards 0.6s;
   }
   .hero-title em { font-style: italic; font-weight: 300; }
-
   .hero-subtitle { margin-top: 20px; font-size: 1rem; color: var(--text-soft); letter-spacing: 0.2em; text-transform: uppercase; opacity: 0; animation: fadeUp 1s ease forwards 0.9s; }
   .hero-date { margin-top: 10px; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.2rem; color: var(--rose-deep); opacity: 0; animation: fadeUp 1s ease forwards 1.1s; }
-
-  #countdown {
-    margin-top: 30px;
-    display: flex;
-    gap: 15px;
-    opacity: 0;
-    animation: fadeUp 1s ease forwards 1.3s;
-  }
-
-  .count-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .count-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem;
-    color: var(--rose-deep);
-    font-weight: 400;
-  }
-
-  .count-label {
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-soft);
-  }
-
-  .scroll-hint { margin-top: 40px; font-size: 0.8rem; color: var(--text-soft); letter-spacing: 0.15em; opacity: 0; animation: fadeUp 1s ease forwards 1.6s; }
+  .scroll-hint { margin-top: 60px; font-size: 0.8rem; color: var(--text-soft); letter-spacing: 0.15em; opacity: 0; animation: fadeUp 1s ease forwards 1.4s; }
   .scroll-hint span { display: block; margin-top: 8px; font-size: 1.2rem; animation: bounce 2s ease-in-out infinite; }
 
-  /* ── ENVELOPE ── */
-  .envelope-wrapper {
-    position: relative;
-    height: 400px;
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
-    perspective: 1000px;
-  }
-
-  .envelope {
-    position: absolute;
-    width: 100%;
-    height: 250px;
-    background: var(--envelope-bg);
-    bottom: 0;
-    border-radius: 0 0 5px 5px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    transition: transform 0.5s ease;
-  }
-
-  /* The flap */
-  .envelope::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    z-index: 4;
-    border-top: 130px solid var(--rose);
-    border-left: 250px solid transparent;
-    border-right: 250px solid transparent;
-    transform-origin: top;
-    transition: all 0.5s ease;
-  }
-
-  .envelope.open::before {
-    transform: rotateX(180deg);
-    z-index: 1;
-  }
-
-  /* The heart seal */
-  .heart-seal {
-    position: absolute;
-    top: 110px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 40px;
-    background: var(--rose-deep);
-    z-index: 5;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    cursor: pointer;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
-  }
-
-  .envelope.open .heart-seal {
-    top: -20px;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  /* The actual letter content inside */
-  #letter-slide {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    right: 10px;
-    height: 0;
-    background: white;
-    padding: 40px 30px;
-    overflow: hidden;
-    transition: all 0.8s ease 0.3s;
-    z-index: 2;
-    box-shadow: 0 0 15px rgba(0,0,0,0.05);
-  }
-
-  .envelope.open #letter-slide {
-    height: 600px; /* Expands down */
-    bottom: -580px; /* Slides out */
-    z-index: 10;
-  }
-
-  .letter-greeting { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.4rem; color: var(--rose-deep); margin-bottom: 24px; }
-  .letter-body { font-size: 0.95rem; line-height: 1.8; color: var(--text); white-space: pre-line; }
-  .letter-sign { margin-top: 36px; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.3rem; color: var(--rose-deep); text-align: right; }
-
-  /* ── DIVIDER ── */
+  /* DIVIDERS */
   .divider { display: flex; align-items: center; gap: 16px; margin: 0 auto 48px; max-width: 300px; }
   .divider-line { flex: 1; height: 1px; background: var(--rose); opacity: 0.5; }
   .divider-heart { color: var(--rose-deep); font-size: 1rem; }
-
   .section-label { font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-soft); margin-bottom: 12px; }
   .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 6vw, 3.2rem); font-weight: 300; color: var(--rose-deep); line-height: 1.15; margin-bottom: 40px; }
   .section-title em { font-style: italic; }
 
-  /* ── REASONS ── */
+  /* LETTER */
+  #letter {
+    background: white; border-radius: 2px; padding: 64px 48px;
+    box-shadow: 0 4px 40px rgba(240,160,185,0.15);
+    position: relative; border-top: 3px solid var(--rose);
+  }
+  #letter::before { content: '\275D'; font-family: 'Cormorant Garamond', serif; font-size: 5rem; color: var(--rose); opacity: 0.3; position: absolute; top: 16px; left: 24px; line-height: 1; }
+  .letter-greeting { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.4rem; color: var(--rose-deep); margin-bottom: 24px; }
+  .letter-body { font-size: 1rem; line-height: 1.9; color: var(--text); white-space: pre-line; }
+  .letter-sign { margin-top: 36px; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.3rem; color: var(--rose-deep); text-align: right; }
+
+  /* REASONS */
   .reasons-grid { display: grid; gap: 16px; }
   .reason-card { background: white; border-radius: 2px; padding: 28px 32px; display: flex; align-items: flex-start; gap: 20px; box-shadow: 0 2px 20px rgba(240,160,185,0.12); border-left: 3px solid var(--rose); }
   .reason-number { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: var(--rose); line-height: 1; min-width: 40px; }
   .reason-text { font-size: 1rem; line-height: 1.7; color: var(--text); padding-top: 6px; }
 
-  /* ── LOCKED SECTION ── */
-  #locked-section { max-width: 680px; margin: 0 auto; padding: 0 32px 80px; }
-  .lock-card { background: white; border-radius: 2px; padding: 56px 48px; text-align: center; box-shadow: 0 4px 40px rgba(240,160,185,0.15); position: relative; overflow: hidden; }
-  .lock-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--rose), var(--rose-deep), var(--rose)); }
-  .lock-icon { font-size: 3rem; margin-bottom: 20px; display: block; animation: heartbeat 2s ease-in-out infinite; }
+  /* GALLERY */
+  .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .gallery-item { position: relative; overflow: hidden; border-radius: 4px; aspect-ratio: 1; box-shadow: 0 4px 20px rgba(224,112,144,0.2); transition: transform 0.3s ease; cursor: pointer; background: var(--petal); }
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .gallery-item:hover { transform: scale(1.05); z-index: 2; }
+  .gallery-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+  .gallery-placeholder span { font-size: 1.8rem; }
+  .gallery-placeholder p { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-soft); text-align: center; padding: 0 8px; }
+  .gallery-sub { font-size: 0.9rem; color: var(--text-soft); margin-top: 16px; margin-bottom: 0; line-height: 1.6; }
+
+  /* PASSWORD LOCK */
+  #locked-section { margin-top: 0; }
+  .lock-card { background: white; border-radius: 2px; padding: 56px 48px; text-align: center; box-shadow: 0 4px 40px rgba(240,160,185,0.15); border-top: 3px solid var(--rose-deep); }
+  .lock-icon { font-size: 3rem; margin-bottom: 20px; display: block; }
   .lock-title { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--rose-deep); margin-bottom: 12px; }
   .lock-hint { font-size: 0.95rem; color: var(--text-soft); margin-bottom: 8px; line-height: 1.6; }
   .lock-input-wrap { margin-top: 28px; display: flex; gap: 10px; max-width: 320px; margin-left: auto; margin-right: auto; }
   .lock-input { flex: 1; padding: 12px 18px; border: 1.5px solid var(--rose); border-radius: 999px; font-family: 'Jost', sans-serif; font-size: 1rem; color: var(--text); background: var(--cream); outline: none; text-align: center; }
-  .lock-btn { padding: 12px 22px; background: var(--rose-deep); color: white; border: none; border-radius: 999px; cursor: pointer; }
+  .lock-btn { padding: 12px 22px; background: var(--rose-deep); color: white; border: none; border-radius: 999px; cursor: pointer; font-family: 'Jost', sans-serif; }
+  .lock-btn:hover { background: #c85878; }
+  .lock-msg { min-height: 1.5rem; margin-top: 12px; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; color: var(--rose-deep); }
 
-  #unlocked-content { display: none; text-align: center; animation: fadeUp 0.8s ease forwards; }
+  #unlocked-content { display: none; margin-top: 40px; animation: fadeUp 0.8s ease forwards; }
   .secret-cards { display: grid; gap: 16px; text-align: left; margin-top: 24px; }
   .secret-card { background: var(--petal); border-radius: 2px; padding: 24px 28px; font-size: 1rem; line-height: 1.75; color: var(--text); border-left: 3px solid var(--rose-deep); }
   .secret-card-label { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-soft); margin-bottom: 8px; }
 
-  /* ── GALLERY ── */
-  .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  .gallery-item { position: relative; overflow: hidden; border-radius: 4px; aspect-ratio: 1; background: #1a0a10; }
-  .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
-
-  /* ── FOOTER ── */
+  /* FOOTER */
   footer { text-align: center; padding: 60px 32px 80px; }
   .footer-hearts { font-size: 1.5rem; letter-spacing: 0.5em; margin-bottom: 16px; color: var(--rose); }
+  .footer-text { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--text-soft); }
+  .footer-sub { margin-top: 8px; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--rose); }
 
   /* ANIMATIONS */
-  @keyframes
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 480px) {
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    #letter { padding: 40px 24px; }
+    .lock-card { padding: 40px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="hearts-canvas"></canvas>
+<iframe id="yt-iframe" src="https://www.youtube-nocookie.com/embed/KmOVNVZEP9o?autoplay=1&mute=0&loop=1&playlist=KmOVNVZEP9o&controls=0&enablejsapi=1" allow="autoplay"></iframe>
+
+<!-- MUSIC PLAYER -->
+<div id="music-player">
+  <button class="music-btn" onclick="toggleMusic()" id="music-btn-el">&#9654;</button>
+  <div class="music-info">
+    <span class="music-title">Play our song &#127800;</span>
+    <span class="music-sub" id="music-sub-el">tap to play</span>
+  </div>
+  <div class="music-bars paused" id="music-bars">
+    <div class="music-bar"></div>
+    <div class="music-bar"></div>
+    <div class="music-bar"></div>
+    <div class="music-bar"></div>
+    <div class="music-bar"></div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="petal-ring">&#127800; &#127799; &#127800;</div>
+    <h1 class="hero-title">HAPPY BIRTHDAY,<br><em>EUNICE</em></h1>
+    <p class="hero-subtitle">The day an angel was born fr</p>
+    <p class="hero-date">9/05/2026 &#127800;</p>
+    <p class="scroll-hint">something special is waiting for ya my loveeee <span>&#8595;</span></p>
+  </section>
+
+  <!-- LETTER -->
+  <section>
+    <div class="divider"><div class="divider-line"></div><div class="divider-heart">&#9825;</div><div class="divider-line"></div></div>
+    <div class="reveal">
+      <p class="section-label">a letter to a girl named</p>
+      <h2 class="section-title"><em>Eunice</em></h2>
+      <div id="letter">
+        <p class="letter-greeting">My dearest Eunice,</p>
+        <div class="letter-body">Today is a day to celebrate your birth and really I am so glad you came into my life and rescued me, I really do love you so much and ever since you dragged me back into the light, life has been so much better thanks to you and for that I owe you my life.
+
+You really gave me a chance even when I acted like an idiot at times though you still stayed with me and for that I am so grateful, I must repay you with my life right??
+
+Across all that ocean, across all those time zones you are still the first thing I think about every morning and the last thing on my mind every night. Distance has not taken a single thing away from how much I LOVE YOU!!!!
+
+Happy birthday, my beautiful girl (PINAY). You deserve every good thing that exists. I hope this day makes you feel even a fraction of what you make me feel every single day. MWA MWA MWA MWAPS</div>
+        <p class="letter-sign">All my love, forever &mdash; Ash &#127800;</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section>
+    <div class="divider"><div class="divider-line"></div><div class="divider-heart">&#9825;</div><div class="divider-line"></div></div>
+    <div class="reveal">
+      <p class="section-label">Us</p>
+      <h2 class="section-title">MY GIRL <em>beautiful as always lol</em></h2>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="photo1.jpg" alt="Us" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="gallery-placeholder" style="display:none"><span>&#127800;</span><p>Add photo1.jpg</p></div>
+        </div>
+        <div class="gallery-item">
+          <img src="photo2.jpg" alt="Us" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="gallery-placeholder" style="display:none"><span>&#127800;</span><p>Add photo2.jpg</p></div>
+        </div>
+        <div class="gallery-item">
+          <img src="photo3.jpg" alt="Us" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="gallery-placeholder" style="display:none"><span>&#127800;</span><p>Add photo3.jpg</p></div>
+        </div>
+        <div class="gallery-item">
+          <img src="photo4.jpg" alt="Us" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="gallery-placeholder" style="display:none"><span>&#127800;</span><p>Add photo4.jpg</p></div>
+        </div>
+        <div class="gallery-item">
+          <img src="ash.jpg" alt="Ash" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="gallery-placeholder" style="display:none"><span>&#128524;</span><p>Add ash.jpg</p></div>
+        </div>
+        <div class="gallery-item">
+          <img src="photo5.jpg" alt="Us" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="gallery-placeholder" style="display:none"><span>&#127800;</span><p>Add photo5.jpg</p></div>
+        </div>
+      </div>
+      <p class="gallery-sub">just some of my favourite memories with you &#127800;</p>
+    </div>
+  </section>
+
+  <!-- REASONS -->
+  <section>
+    <div class="divider"><div class="divider-line"></div><div class="divider-heart">&#9825;</div><div class="divider-line"></div></div>
+    <div class="reveal">
+      <p class="section-label">real ones only</p>
+      <h2 class="section-title">why I love <em>you</em></h2>
+      <div class="reasons-grid">
+        <div class="reason-card">
+          <div class="reason-number">01</div>
+          <div class="reason-text">Your kindness despite the many struggles you face day to day is very remarkable babe, I really strive to be someone as you; a person full of good in this forsaken world. Keep it up babe IM SO PROUD OF U!!!!</div>
+        </div>
+        <div class="reason-card">
+          <div class="reason-number">02</div>
+          <div class="reason-text">You stuck around with me when I was unsure about us, I love u so much babe cause really I am so grateful for you putting up with me, someone as mature as you is stuck with someone as immature as me hehe!! mwa mwa mwap</div>
+        </div>
+        <div class="reason-card">
+          <div class="reason-number">03</div>
+          <div class="reason-text">Not just the way you look &mdash; though absolutely that too. The way your heart works, the way you care about people, the way you carry yourself. All of it is stunning to me.</div>
+        </div>
+        <div class="reason-card">
+          <div class="reason-number">04</div>
+          <div class="reason-text">YOU NEVER LET DISTANCE WIN THANK YOU!!!!!! WE WILL BE IN EACH OTHERS ARMS SOONNN &#127800;</div>
+        </div>
+        <div class="reason-card">
+          <div class="reason-number">05</div>
+          <div class="reason-text">Even just talking to you, even the quiet moments they rlly mean everything. You have this way of making normal life feel like something worth waking up for.</div>
+        </div>
+        <div class="reason-card">
+          <div class="reason-number">06</div>
+          <div class="reason-text">That is genuinely the whole reason. You are mine and I am yours and there is nothing in this world that makes me happier than that simple fact.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECRET MESSAGE -->
+  <section>
+    <div class="divider"><div class="divider-line"></div><div class="divider-heart">&#9825;</div><div class="divider-line"></div></div>
+    <div class="reveal" id="locked-section">
+      <div class="lock-card">
+        <span class="lock-icon">&#128274;</span>
+        <h2 class="lock-title">There&#39;s a secret message waiting for you</h2>
+        <p class="lock-hint">But you have to prove you deserve it first muahahahha &#128527;</p>
+        <p class="lock-hint">Hint: type the magic words...</p>
+        <div class="lock-input-wrap">
+          <input class="lock-input" type="text" id="lockInput" placeholder="i love you ash" autocomplete="off" />
+          <button class="lock-btn" onclick="checkPassword()">Unlock &#127800;</button>
+        </div>
+        <p class="lock-msg" id="lockMsg"></p>
+        <div id="unlocked-content">
+          <div class="secret-cards">
+            <div class="secret-card">
+              <p class="secret-card-label">There it is &#127800;</p>
+              <p>There it is. I knew you&#39;d get there eventually na para bang. &#127800;</p>
+            </div>
+            <div class="secret-card">
+              <p>Eunice, I need you to hear this, and really hear it. You are the most important person in my world, I would seriously die for you in any way and I really want you so bad to be my wife cause you are a star that deserves everything mwa mwa..</p>
+            </div>
+            <div class="secret-card">
+              <p>You stayed, you really didn&#39;t have to but for a dumb guy in Australia you did, everyday I am so grateful you are with me heh I love you so much and I want us to be forever u understand!!!</p>
+            </div>
+            <div class="secret-card">
+              <p>The distance is hard. I know you have your worries about physical attraction but best believe im content with mini me and your photos AHAHAHHAHA dont worry baby I am saving myself for u and u only!!! gada ha!</p>
+            </div>
+            <div class="secret-card">
+              <p>I love you more than the whole world. You mean so much to me that I want to protect you every single day, be there for you everyday ensure you deserve only the best, because I love you so much for who you are; a beautiful kind girl that strives to better the world despite the evil within. Happy birthday, my beautiful girl. Thank you for letting me be your boyfriend and really wish you will allow me to become your husbando!! LOVE U SO MUCH MWA MWA MWA MWA.!!!!!1 &#127800;</p>
+            </div>
+          </div>
+          <p style="margin-top:32px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.3rem;color:var(--rose-deep);">&mdash; Forever yours, Ash &#127800;&#127800;&#127800;</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-hearts">&#127800; &#9825; &#127800; &#9825; &#127800;</div>
+    <p class="footer-text">&ldquo;Distance means so little when someone means so much.&rdquo;</p>
+    <p class="footer-sub">Made with all the love in the world &middot; Ash &#127800; Eunice &middot; &#127462;&#127482; &#8596; &#127477;&#127469;</p>
+  </footer>
+
+</div>
+
+<script>
+  /* FLOATING HEARTS */
+  (function() {
+    var canvas = document.getElementById('hearts-canvas');
+    var ctx = canvas.getContext('2d');
+    var hearts = [];
+    var emojis = ['\u{1F338}','\u{1F337}','\u2665','\u2665'];
+
+    function resize() {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    for (var i = 0; i < 24; i++) {
+      hearts.push({
+        x:     Math.random() * window.innerWidth,
+        y:     Math.random() * window.innerHeight,
+        size:  10 + Math.random() * 14,
+        speed: 0.4 + Math.random() * 0.7,
+        emoji: emojis[Math.floor(Math.random() * emojis.length)],
+        opacity: 0.12 + Math.random() * 0.2
+      });
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (var i = 0; i < hearts.length; i++) {
+        var h = hearts[i];
+        ctx.globalAlpha = h.opacity;
+        ctx.font = h.size + 'px serif';
+        ctx.fillText(h.emoji, h.x, h.y);
+        h.y -= h.speed;
+        if (h.y < -30) {
+          h.y = canvas.height + 30;
+          h.x = Math.random() * canvas.width;
+        }
+      }
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+
+  /* MUSIC */
+  var ytPlayer = null;
+  var musicPlaying = false;
+
+  function onYouTubeIframeAPIReady() {
+    ytPlayer = new YT.Player('yt-iframe', { events: { onReady: function() {} } });
+  }
+
+  function toggleMusic() {
+    var btn  = document.getElementById('music-btn-el');
+    var bars = document.getElementById('music-bars');
+    var sub  = document.getElementById('music-sub-el');
+    if (!musicPlaying) {
+      if (ytPlayer && ytPlayer.playVideo) ytPlayer.playVideo();
+      musicPlaying = true;
+      btn.innerHTML = '&#9646;&#9646;';
+      bars.classList.remove('paused');
+      sub.textContent = 'now playing \u266a';
+    } else {
+      if (ytPlayer && ytPlayer.pauseVideo) ytPlayer.pauseVideo();
+      musicPlaying = false;
+      btn.innerHTML = '&#9654;';
+      bars.classList.add('paused');
+      sub.textContent = 'tap to play';
+    }
+  }
+
+  /* PASSWORD */
+  var hints = [
+    "Hmm... think about your favourite boyfriend \u{1F60F}",
+    "It's a name. A very handsome name. Starts with A... \u{1F60C}",
+    "Three words. 'I love ___.' You know this one babe \u{1F97A}",
+    "Who flew halfway across the world into your heart? \u{1F1E6}\u{1F1FA}",
+    "Come on... who's your person? Your favourite human ever? \u{1F338}",
+    "The man who built you this whole website is giving you a hint right now \u{1F602}\u{1F338}",
+  ];
+  var hintIdx = 0;
+
+  function checkPassword() {
+    var val     = document.getElementById('lockInput').value.trim();
+    var msg     = document.getElementById('lockMsg');
+    var content = document.getElementById('unlocked-content');
+    if (/i\s+love\s+(you\s+)?ash/i.test(val)) {
+      msg.textContent = '\u2728 There it is... opening your message \u{1F338}';
+      document.getElementById('lockInput').disabled = true;
+      document.querySelector('.lock-btn').disabled  = true;
+      setTimeout(function() {
+        content.style.display = 'block';
+        content.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 700);
+    } else if (val.length > 0) {
+      msg.textContent = hints[hintIdx % hints.length];
+      hintIdx++;
+    }
+  }
+
+  document.getElementById('lockInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') checkPassword();
+  });
+
+  /* SCROLL REVEAL */
+  var obs = new IntersectionObserver(function(entries) {
+    for (var i = 0; i < entries.length; i++) {
+      if (entries[i].isIntersecting) entries[i].target.classList.add('visible');
+    }
+  }, { threshold: 0.1 });
+  var revealEls = document.querySelectorAll('.reveal');
+  for (var i = 0; i < revealEls.length; i++) obs.observe(revealEls[i]);
+</script>
+<script src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>
